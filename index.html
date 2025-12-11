@@ -5,111 +5,136 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>For My Parii 💖</title>
 <style>
-  html,body{height:100%;margin:0;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-  body{display:flex;align-items:center;justify-content:center;background: radial-gradient(circle at 10% 10%, #fff0f6, #ffeef8 20%, #fff 60%), linear-gradient(135deg,#ffd6e8,#fff 60%);overflow:hidden}
-  .card{width:92%;max-width:540px;padding:28px;border-radius:20px;background:rgba(255,255,255,0.88);box-shadow:0 10px 30px rgba(0,0,0,0.08);text-align:center}
+  html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+  body{
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 10% 10%, #fff0f6, #ffeef8 20%, #fff 60%), linear-gradient(135deg,#ffd6e8,#fff 60%);
+    overflow:hidden;padding:28px;
+  }
+  .card{width:92%;max-width:560px;padding:28px;border-radius:20px;background:rgba(255,255,255,0.88);box-shadow:0 10px 30px rgba(0,0,0,0.08);text-align:center}
   h1{margin:0 0 8px;font-size:28px}
   p{margin:0 0 12px;color:#5b5b5b}
   .heart{font-size:48px;opacity:0.95}
-  .popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.85);min-width:260px;max-width:90%;padding:18px;border-radius:14px;background:white;box-shadow:0 12px 40px rgba(0,0,0,0.18);text-align:center;z-index:50;opacity:0;transition:all 360ms cubic-bezier(.2,.9,.2,1)}
-  .popup.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  .btn{display:inline-block;margin-top:12px;padding:8px 14px;border-radius:10px;background:#ff6fa3;color:white;text-decoration:none;font-weight:600}
-  .closeX{position:absolute;right:10px;top:8px;font-size:18px;cursor:pointer;color:#888}
+  .btn{display:inline-block;margin-top:12px;padding:10px 18px;border-radius:12px;background:#ff6fa3;color:white;text-decoration:none;font-weight:600;cursor:pointer}
   .meta{font-size:12px;color:#999;margin-top:8px}
-  .confetti {pointer-events:none;position:fixed;inset:0;z-index:10;overflow:hidden;}
-  .confetti i{position:absolute;width:10px;height:14px;opacity:0.95;transform-origin:center;animation:fall 2400ms linear infinite}
-  @keyframes fall{0%{transform:translateY(-10vh) rotate(0)}100%{transform:translateY(110vh) rotate(540deg)}}
+  /* hide the radios */
+  input[name="step"]{display:none}
+  /* base popup */
+  .popup{
+    position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.85);
+    min-width:260px;max-width:92%;padding:20px;border-radius:14px;background:white;box-shadow:0 12px 40px rgba(0,0,0,0.18);text-align:center;z-index:60;
+    opacity:0;pointer-events:none;transition:all .28s cubic-bezier(.2,.9,.2,1)
+  }
+  /* when its radio checked */
+  #p1:checked ~ .popups .p1,
+  #p2:checked ~ .popups .p2,
+  #p3:checked ~ .popups .p3,
+  #p4:checked ~ .popups .p4,
+  #p5:checked ~ .popups .p5 {
+    opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)
+  }
+  /* overlay */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.12);z-index:55;opacity:0;pointer-events:none;transition:opacity .28s}
+  #p1:checked ~ .overlay,#p2:checked ~ .overlay,#p3:checked ~ .overlay,#p4:checked ~ .overlay,#p5:checked ~ .overlay{
+    opacity:1;pointer-events:auto;
+  }
+  .popup h2{margin:0 0 8px;font-size:20px}
+  .popup p{margin:6px 0 12px;color:#444}
+  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .controls label{padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:700;background:#ff6fa3;color:#fff;cursor:pointer}
+  .controls .back{background:#f1f1f1;color:#333}
+  .closeX{position:absolute;right:10px;top:8px;font-size:18px;cursor:pointer;color:#888;padding:4px}
+  /* confetti purely decorative - animate using CSS only */
+  .confetti{pointer-events:none;position:fixed;inset:0;z-index:50;overflow:hidden}
+  .confetti span{position:absolute;width:8px;height:12px;border-radius:3px;opacity:.95;transform-origin:center;animation:fall 2400ms linear infinite}
+  @keyframes fall{0%{transform:translateY(-15vh) rotate(0)}100%{transform:translateY(120vh) rotate(540deg)}}
+  @media (max-width:420px){h1{font-size:22px}.card{padding:20px}}
 </style>
 </head>
 <body>
-<div class="card">
-  <div style="font-size:38px">💌</div>
+
+<!-- radios to control state -->
+<input type="radio" name="step" id="none" checked>
+<input type="radio" name="step" id="p1">
+<input type="radio" name="step" id="p2">
+<input type="radio" name="step" id="p3">
+<input type="radio" name="step" id="p4">
+<input type="radio" name="step" id="p5">
+
+<div class="card" id="top">
+  <div style="font-size:36px">💌</div>
   <h1>For my Parii…</h1>
   <p>Tap the button and enjoy some tiny love notes I made just for you. 💕</p>
-  <a href="#" id="start" class="btn">Open your sweet notes</a>
+  <!-- label toggles the first radio -->
+  <label for="p1" class="btn">Open your sweet notes</label>
   <div class="meta">Made with all my heart ❤️</div>
 </div>
 
-<!-- Popups -->
-<div id="p1" class="popup" aria-hidden="true">
-  <div class="closeX" onclick="nextPopup()">✕</div>
-  <div style="font-size:20px">Hey Parii…</div>
-  <div style="margin:8px 0 0">I love you sooo much — your smile is my favourite thing in the whole world. 💖</div>
-  <a class="btn" href="#" onclick="nextPopup()">Aww 🥺</a>
+<!-- popup containers -->
+<div class="popups">
+  <div class="popup p1" role="dialog" aria-hidden="false">
+    <label class="closeX" for="none">✕</label>
+    <h2>Hey Parii…</h2>
+    <p>I love you sooo much — your smile is my favourite thing in the whole world. 💖</p>
+    <div class="controls">
+      <label for="p2">Aww 🥺</label>
+      <label for="none" class="back">Close</label>
+    </div>
+  </div>
+
+  <div class="popup p2" role="dialog" aria-hidden="false">
+    <label class="closeX" for="none">✕</label>
+    <h2>Tiny reminder</h2>
+    <p>You’re my sunshine on cloudy days and my cozy blanket at night. 🍯☁️</p>
+    <div class="controls">
+      <label for="p3">Love you 💗</label>
+      <label for="p1" class="back">Back</label>
+    </div>
+  </div>
+
+  <div class="popup p3" role="dialog" aria-hidden="false">
+    <label class="closeX" for="none">✕</label>
+    <h2>Silly fact</h2>
+    <p>I smile like an idiot just thinking about you. You broke my seriousness, and I love it. 😊</p>
+    <div class="controls">
+      <label for="p4">Hehe 😘</label>
+      <label for="p2" class="back">Back</label>
+    </div>
+  </div>
+
+  <div class="popup p4" role="dialog" aria-hidden="false">
+    <label class="closeX" for="none">✕</label>
+    <h2>My promise</h2>
+    <p>I’ll always be your biggest fan, your shoulder, and your warm hug. Forever and ever. 🤍</p>
+    <div class="controls">
+      <label for="p5">Forever 🥰</label>
+      <label for="p3" class="back">Back</label>
+    </div>
+  </div>
+
+  <div class="popup p5" role="dialog" aria-hidden="false">
+    <label class="closeX" for="none">✕</label>
+    <h2>P.S.</h2>
+    <p>You are my favorite hello, my sweetest hello, and my hardest goodbye. I love you more than words — ready for a kiss? 💋💗</p>
+    <div class="controls">
+      <label for="none">I love you too ❤️</label>
+      <label for="p4" class="back">Back</label>
+    </div>
+  </div>
 </div>
 
-<div id="p2" class="popup" aria-hidden="true">
-  <div class="closeX" onclick="nextPopup()">✕</div>
-  <div style="font-size:20px">Tiny reminder</div>
-  <div style="margin:8px 0 0">You’re my sunshine on cloudy days and my cozy blanket at night. 🍯☁️</div>
-  <a class="btn" href="#" onclick="nextPopup()">Love you 💗</a>
+<!-- overlay to dim background when any popup is open -->
+<div class="overlay" aria-hidden="true"></div>
+
+<!-- decorative confetti (CSS animated) -->
+<div class="confetti" aria-hidden="true">
+  <span style="left:6%;background:#ff7aa2;animation-delay:0ms"></span>
+  <span style="left:22%;background:#ffd6e8;animation-delay:120ms"></span>
+  <span style="left:38%;background:#ffc8dd;animation-delay:240ms"></span>
+  <span style="left:54%;background:#ff9fb1;animation-delay:360ms"></span>
+  <span style="left:70%;background:#ffe1f5;animation-delay:480ms"></span>
+  <span style="left:86%;background:#ffd6e8;animation-delay:600ms"></span>
 </div>
 
-<div id="p3" class="popup" aria-hidden="true">
-  <div class="closeX" onclick="nextPopup()">✕</div>
-  <div style="font-size:20px">Silly fact</div>
-  <div style="margin:8px 0 0">I smile like an idiot just thinking about you. You broke my seriousness, and I love it. 😊</div>
-  <a class="btn" href="#" onclick="nextPopup()">Hehe 😘</a>
-</div>
-
-<div id="p4" class="popup" aria-hidden="true">
-  <div class="closeX" onclick="nextPopup()">✕</div>
-  <div style="font-size:20px">My promise</div>
-  <div style="margin:8px 0 0">I’ll always be your biggest fan, your shoulder, and your warm hug. Forever and ever. 🤍</div>
-  <a class="btn" href="#" onclick="nextPopup()">Forever 🥰</a>
-</div>
-
-<div id="p5" class="popup" aria-hidden="true">
-  <div class="closeX" onclick="closeAll()">✕</div>
-  <div style="font-size:22px">P.S.</div>
-  <div style="margin:8px 0 0">You are my favorite hello, my sweetest hello, and my hardest goodbye. I love you more than words — ready for a kiss? 💋💗</div>
-  <a class="btn" href="#" onclick="closeAll()">I love you too ❤️</a>
-</div>
-
-<div class="confetti" id="confetti"></div>
-
-<script>
-const popups = ['p1','p2','p3','p4','p5'];
-let idx = 0;
-function showPopup(i){
-  document.querySelectorAll('.popup').forEach(el=>el.classList.remove('show'));
-  const el = document.getElementById(popups[i]);
-  if(el){ el.classList.add('show'); el.setAttribute('aria-hidden','false'); }
-  if(i===popups.length-1) makeConfetti();
-}
-function nextPopup(){
-  idx++;
-  if(idx < popups.length) showPopup(idx);
-  else closeAll();
-}
-function closeAll(){
-  document.querySelectorAll('.popup').forEach(el=>{el.classList.remove('show'); el.setAttribute('aria-hidden','true');});
-  idx = 0;
-  stopConfetti();
-}
-document.getElementById('start').addEventListener('click', function(e){
-  e.preventDefault();
-  showPopup(0);
-});
-
-// Confetti little engine
-function makeConfetti(){
-  const c = document.getElementById('confetti');
-  c.innerHTML = '';
-  const colors = ['#ff7aa2','#ffd6e8','#ffc8dd','#ff9fb1','#ffe1f5'];
-  for(let i=0;i<28;i++){
-    const el = document.createElement('i');
-    el.style.left = (Math.random()*100)+'%';
-    el.style.top = (-Math.random()*20)+'vh';
-    el.style.background = colors[i % colors.length];
-    el.style.width = (6+Math.random()*10)+'px';
-    el.style.height = (8+Math.random()*18)+'px';
-    el.style.animationDelay = (Math.random()*800)+'ms';
-    el.style.transform = 'rotate('+ (Math.random()*360) +'deg)';
-    c.appendChild(el);
-  }
-}
-function stopConfetti(){ document.getElementById('confetti').innerHTML = ''; }
-</script>
 </body>
 </html>
